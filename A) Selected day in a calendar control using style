@@ -1,0 +1,6 @@
+<%-- ===== .aspx : paste inside <div> (keep your own first <%@ Page %> line) ===== --%>
+<asp:Calendar ID="Calendar1" runat="server">
+    <SelectedDayStyle BackColor="Blue" ForeColor="White" Font-Bold="True" />
+</asp:Calendar>
+
+<%-- No C# code needed for this one --%>

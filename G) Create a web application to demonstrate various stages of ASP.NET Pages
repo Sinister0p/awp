@@ -1,0 +1,19 @@
+<%-- ===== .aspx : paste inside <div> (keep your own first <%@ Page %> line) ===== --%>
+<asp:Label ID="Label1" runat="server" Text="ViewState Data: "></asp:Label>
+<asp:Label ID="lblStr" runat="server"></asp:Label>
+<br /><br />
+<asp:Button ID="Button1" runat="server" Text="Get Data" OnClick="Button1_Click" />
+
+// ===== .aspx.cs : paste inside the class braces =====
+protected void Page_Load(object sender, EventArgs e)
+{
+    if (!IsPostBack)
+    {
+        ViewState["nam"] = "XYZ";
+    }
+}
+
+protected void Button1_Click(object sender, EventArgs e)
+{
+    lblStr.Text = ViewState["nam"].ToString();
+}

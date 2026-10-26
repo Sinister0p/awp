@@ -1,0 +1,10 @@
+<%-- ===== .aspx : paste inside <div> (keep your own first <%@ Page %> line) ===== --%>
+<asp:Calendar ID="Calendar1" runat="server" OnSelectionChanged="Calendar1_SelectionChanged"></asp:Calendar>
+<br />
+<asp:Label ID="Label1" runat="server" Font-Bold="True"></asp:Label>
+
+// ===== .aspx.cs : paste inside the class braces =====
+protected void Calendar1_SelectionChanged(object sender, EventArgs e)
+{
+    Label1.Text = "You selected: " + Calendar1.SelectedDate.ToLongDateString();
+}

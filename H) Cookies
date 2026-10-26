@@ -1,0 +1,29 @@
+<%-- Step 1: change the opening body tag to: <body id="BodyTag" runat="server"> --%>
+
+<%-- ===== .aspx : paste inside <div> (keep your own first <%@ Page %> line) ===== --%>
+<asp:DropDownList ID="ColorSelector" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ColorSelector_IndexChanged">
+    <asp:ListItem Value="white" Selected="True">Select colour</asp:ListItem>
+    <asp:ListItem Value="red">red</asp:ListItem>
+    <asp:ListItem Value="green">green</asp:ListItem>
+    <asp:ListItem Value="blue">blue</asp:ListItem>
+</asp:DropDownList>
+
+// ===== .aspx.cs : paste inside the class braces =====
+// Demo: pick a colour, close the tab, run again. The colour is remembered.
+protected void Page_Load(object sender, EventArgs e)
+{
+    if (!IsPostBack && Request.Cookies["BackgroundColor"] != null)
+    {
+        ColorSelector.SelectedValue = Request.Cookies["BackgroundColor"].Value;
+    }
+    BodyTag.Style["background-color"] = ColorSelector.SelectedValue;
+}
+
+protected void ColorSelector_IndexChanged(object sender, EventArgs e)
+{
+    BodyTag.Style["background-color"] = ColorSelector.SelectedValue;
+    HttpCookie cookie = new HttpCookie("BackgroundColor");
+    cookie.Value = ColorSelector.SelectedValue;
+    cookie.Expires = DateTime.Now.AddDays(1);
+    Response.Cookies.Add(cookie);
+}

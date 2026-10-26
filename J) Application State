@@ -1,0 +1,17 @@
+<%-- ===== .aspx : paste inside <div> (keep your own first <%@ Page %> line) ===== --%>
+<h2>Application State - Visitor Counter</h2>
+<asp:Button ID="btnVisit" runat="server" Text="Count Visitor" OnClick="btnVisit_Click" />
+<br /><br />
+<asp:Label ID="lblCount" runat="server"></asp:Label>
+
+// ===== .aspx.cs : paste inside the class braces =====
+protected void btnVisit_Click(object sender, EventArgs e)
+{
+    if (Application["VisitorCount"] == null)
+        Application["VisitorCount"] = 0;
+
+    int count = (int)Application["VisitorCount"];
+    count++;
+    Application["VisitorCount"] = count;
+    lblCount.Text = "Total Visitors: " + count;
+}

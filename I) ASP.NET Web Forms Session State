@@ -1,0 +1,46 @@
+<%-- Two Web Forms: Login.aspx and Welcome.aspx. Set Login.aspx as Start Page. Login with admin / 1234 --%>
+
+<%-- ===== Login.aspx : paste inside <div> ===== --%>
+<h2>Login Form</h2>
+Username: <asp:TextBox ID="txtUsername" runat="server"></asp:TextBox>
+<br /><br />
+Password: <asp:TextBox ID="txtPassword" runat="server" TextMode="Password"></asp:TextBox>
+<br /><br />
+<asp:Button ID="btnLogin" runat="server" Text="Login" OnClick="btnLogin_Click" />
+<br /><br />
+<asp:Label ID="lblMessage" runat="server"></asp:Label>
+
+// ===== Login.aspx.cs : paste inside the class braces =====
+protected void btnLogin_Click(object sender, EventArgs e)
+{
+    if (txtUsername.Text == "admin" && txtPassword.Text == "1234")
+    {
+        Session["Username"] = txtUsername.Text;
+        Response.Redirect("Welcome.aspx");
+    }
+    else
+    {
+        lblMessage.Text = "Invalid Username or Password";
+    }
+}
+
+<%-- ===== Welcome.aspx : paste inside <div> ===== --%>
+<h2>Welcome Page</h2>
+<asp:Label ID="lblWelcome" runat="server"></asp:Label>
+<br /><br />
+<asp:Button ID="btnLogout" runat="server" Text="Logout" OnClick="btnLogout_Click" />
+
+// ===== Welcome.aspx.cs : paste inside the class braces =====
+protected void Page_Load(object sender, EventArgs e)
+{
+    if (Session["Username"] != null)
+        lblWelcome.Text = "Welcome, " + Session["Username"].ToString();
+    else
+        Response.Redirect("Login.aspx");
+}
+
+protected void btnLogout_Click(object sender, EventArgs e)
+{
+    Session.Clear();
+    Response.Redirect("Login.aspx");
+}

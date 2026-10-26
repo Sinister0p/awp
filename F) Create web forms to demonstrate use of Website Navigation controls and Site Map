@@ -1,0 +1,20 @@
+<!-- Step 1: add four Web Forms: Home.aspx, Page2.aspx, Page3.aspx, Page4.aspx. Set Home.aspx as Start Page -->
+
+<!-- ===== Web.sitemap : Add > New Item > Site Map, replace everything in it with this ===== -->
+<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0">
+  <siteMapNode url="Home.aspx" title="Home" description="Home page">
+    <siteMapNode url="Page2.aspx" title="Page2" description="Page 2" />
+    <siteMapNode url="Page3.aspx" title="Page3" description="Page 3" />
+    <siteMapNode url="Page4.aspx" title="Page4" description="Page 4" />
+  </siteMapNode>
+</siteMap>
+
+<%-- ===== .aspx : paste inside <div> on EACH of the four pages (change the heading on each) ===== --%>
+<h2>Home</h2>
+<asp:SiteMapPath ID="SiteMapPath1" runat="server"></asp:SiteMapPath>
+<br /><br />
+<asp:Menu ID="Menu1" runat="server" DataSourceID="SiteMapDataSource1"></asp:Menu>
+<asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" />
+
+<%-- No C# code needed --%>

@@ -1,0 +1,12 @@
+<%-- ===== .aspx : paste inside <div> (keep your own first <%@ Page %> line) ===== --%>
+<asp:Calendar ID="Calendar1" runat="server" OnDayRender="Calendar1_DayRender"></asp:Calendar>
+
+// ===== .aspx.cs : paste inside the class braces =====
+protected void Calendar1_DayRender(object sender, DayRenderEventArgs e)
+{
+    if (e.Day.Date == new DateTime(2026, 10, 21))
+    {
+        e.Cell.BackColor = System.Drawing.Color.Yellow;
+        e.Cell.Controls.Add(new LiteralControl("<br/>Vacation"));
+    }
+}

@@ -1,0 +1,91 @@
+<%-- ===== .aspx : paste inside <div> (keep your own first <%@ Page %> line) ===== --%>
+<asp:Label ID="Label1" runat="server" Text="ViewState Data : "></asp:Label>
+<asp:Label ID="lblstr" runat="server"></asp:Label>
+<br /><br />
+<asp:Button ID="Button1" runat="server" Text="Get Data" OnClick="Button1_Click" />
+<br /><br />
+<asp:ListBox ID="ListBox1" runat="server" SelectionMode="Multiple">
+    <asp:ListItem>C#</asp:ListItem>
+    <asp:ListItem>C++</asp:ListItem>
+    <asp:ListItem>Java</asp:ListItem>
+    <asp:ListItem>C</asp:ListItem>
+</asp:ListBox>
+<br /><br />
+<asp:TextBox ID="TextBox1" runat="server" TextMode="MultiLine" Rows="5" Columns="25"></asp:TextBox>
+<br /><br />
+<asp:Button ID="Button2" runat="server" Text="Show" OnClick="Button2_Click" />
+<br /><br />
+Select Color :
+<asp:RadioButton ID="RadioButton1" runat="server" Text="Red" GroupName="Color" AutoPostBack="True" OnCheckedChanged="Color_Changed" />
+<asp:RadioButton ID="RadioButton2" runat="server" Text="Green" GroupName="Color" AutoPostBack="True" OnCheckedChanged="Color_Changed" />
+<asp:RadioButton ID="RadioButton3" runat="server" Text="Blue" GroupName="Color" AutoPostBack="True" OnCheckedChanged="Color_Changed" />
+<br /><br />
+Select Formatting :
+<asp:CheckBox ID="CheckBox1" runat="server" Text="Bold" AutoPostBack="True" OnCheckedChanged="Format_Changed" />
+<asp:CheckBox ID="CheckBox2" runat="server" Text="Italic" AutoPostBack="True" OnCheckedChanged="Format_Changed" />
+<asp:CheckBox ID="CheckBox3" runat="server" Text="Underline" AutoPostBack="True" OnCheckedChanged="Format_Changed" />
+<br /><br />
+Select Size :
+<asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="True" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged">
+    <asp:ListItem>10</asp:ListItem>
+    <asp:ListItem>20</asp:ListItem>
+    <asp:ListItem>30</asp:ListItem>
+    <asp:ListItem>40</asp:ListItem>
+</asp:DropDownList>
+<br /><br />
+Select Name :
+<asp:DropDownList ID="DropDownList2" runat="server" AutoPostBack="True" OnSelectedIndexChanged="DropDownList2_SelectedIndexChanged">
+    <asp:ListItem>Ajay</asp:ListItem>
+    <asp:ListItem>Aditya</asp:ListItem>
+    <asp:ListItem>Anand</asp:ListItem>
+    <asp:ListItem>Shiv</asp:ListItem>
+</asp:DropDownList>
+
+// ===== .aspx.cs : paste inside the class braces =====
+// Keep the existing Page_Load line and put the if inside it
+protected void Page_Load(object sender, EventArgs e)
+{
+    if (!IsPostBack)
+    {
+        ViewState["name"] = "Ajay";
+    }
+}
+
+protected void Button1_Click(object sender, EventArgs e)
+{
+    lblstr.Text = ViewState["name"].ToString();
+}
+
+protected void Button2_Click(object sender, EventArgs e)
+{
+    TextBox1.Text = "";
+    foreach (ListItem item in ListBox1.Items)
+    {
+        if (item.Selected)
+            TextBox1.Text += item.Text + Environment.NewLine;
+    }
+}
+
+protected void Color_Changed(object sender, EventArgs e)
+{
+    if (RadioButton1.Checked) lblstr.BackColor = System.Drawing.Color.Red;
+    else if (RadioButton2.Checked) lblstr.BackColor = System.Drawing.Color.Green;
+    else if (RadioButton3.Checked) lblstr.BackColor = System.Drawing.Color.Blue;
+}
+
+protected void Format_Changed(object sender, EventArgs e)
+{
+    lblstr.Font.Bold = CheckBox1.Checked;
+    lblstr.Font.Italic = CheckBox2.Checked;
+    lblstr.Font.Underline = CheckBox3.Checked;
+}
+
+protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
+{
+    lblstr.Font.Size = FontUnit.Point(Convert.ToInt32(DropDownList1.SelectedItem.Text));
+}
+
+protected void DropDownList2_SelectedIndexChanged(object sender, EventArgs e)
+{
+    lblstr.Text = DropDownList2.SelectedItem.Text;
+}
